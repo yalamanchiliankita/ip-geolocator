@@ -20,12 +20,13 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <maven.compiler.release>11</maven.compiler.release>
         <mainClass>geolocator.Main</mainClass>
+        <feign.version>11.8</feign.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-jackson</artifactId>
-            <version>11.8</version>
+            <version>${feign.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -171,6 +172,18 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.10.0</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.11.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.wagon</groupId>
+                        <artifactId>wagon-ssh</artifactId>
+                        <version>3.5.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
     <reporting>
@@ -184,7 +197,23 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.3.2</version>
+                <configuration>
+                    <links>
+                        <link>https://javadoc.io/doc/io.github.openfeign/feign-core/${feign.version}/</link>
+                    </links>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.14.0</version>
             </plugin>
         </plugins>
     </reporting>
+    <distributionManagement>
+        <site>
+            <id>shrek</id>
+            <url>scp://yalamanchili.ankita@shrek.unideb.hu:2222/home/yalamanchili.ankita/public_html/${project.artifactId}</url>
+        </site>
+    </distributionManagement>
 </project>
