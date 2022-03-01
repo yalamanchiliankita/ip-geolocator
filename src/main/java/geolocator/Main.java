@@ -1,5 +1,8 @@
 package geolocator;
 
+/**
+ * Command line client for the geolocation library.
+ */
 public class Main {
 
     public static void main(String[] args) {
